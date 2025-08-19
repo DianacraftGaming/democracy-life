@@ -1,7 +1,9 @@
 package net.dianacraft.democracy;
 
+import net.dianacraft.democracy.command.GimmickCommand;
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,5 +18,10 @@ public class DemocracyLife implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		LOGGER.info("Initialising Choose Your Life!");
+
+		CommandRegistrationCallback.EVENT.register((dispatcher, context, selection) -> {
+			// Registering /skin reload
+			GimmickCommand.register(dispatcher);
+		});
 	}
 }

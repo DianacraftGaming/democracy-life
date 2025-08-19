@@ -1,7 +1,6 @@
 package net.dianacraft.democracy.mixin;
 
 import net.mat0u5.lifeseries.seasons.season.aprilfools.reallife.RealLife;
-import net.minecraft.server.network.ServerPlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
