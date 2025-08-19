@@ -3,7 +3,8 @@
 	"package": "net.dianacraft.democracy.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"ExampleMixin"
+		"SeasonMixin",
+		"ConfigMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
