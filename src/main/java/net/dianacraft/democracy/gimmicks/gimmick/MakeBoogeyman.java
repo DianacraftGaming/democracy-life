@@ -39,7 +39,6 @@ public class MakeBoogeyman extends Gimmick {
         return null;
     }
 
-    @Override
     public void activate() {
         if (player == null){
             if (!isAvailable()) return;
