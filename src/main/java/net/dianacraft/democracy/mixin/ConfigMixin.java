@@ -15,11 +15,20 @@ import java.util.List;
 public class ConfigMixin extends ThirdLifeConfig {
     private ConfigFileEntry<Boolean> RELIFE_MODE;
     private ConfigFileEntry<Boolean> AI_OBFUSCATION;
+    private ConfigFileEntry<Integer> GIMMICK_FREQUENCY;
+    private ConfigFileEntry<Integer> GIMMICK_COUNT;
+
+    public ConfigFileEntry<Object> GROUP_DEMOCRACY;
 
 	@Inject(method = "<init>", at = @At("TAIL")) //this thing hates me
 	private void constructor(CallbackInfo info) {
-        this.RELIFE_MODE = new ConfigFileEntry("relife_mode", getOrCreateBoolean("relife_mode", false),"global", "ReLife Mode", "Changes some randomised player gimmicks into preset players from ReLife Series. If none of the ReLifers are present, disables those gimmicks from activating.");
-        //this.RELIFE_MODE = new ConfigFileEntry("ai_obfuscation", getOrCreateBoolean("ai_obfuscation", true),"global", "Ai Obfuscation", "Whether AIs that replace players should have a robotic voice overlay");
+        this.RELIFE_MODE = new ConfigFileEntry("relife_mode", getOrCreateBoolean("relife_mode", false),"season.democracy", "ReLife Mode", "Changes some randomised player gimmicks into preset players from ReLife Series. If none of the ReLifers are present, disables those gimmicks from activating.");
+        this.AI_OBFUSCATION = new ConfigFileEntry("ai_obfuscation", getOrCreateBoolean("ai_obfuscation", true),"season.democracy", "Ai Obfuscation", "Whether AIs that replace players should have a robotic voice overlay");
+        this.GIMMICK_FREQUENCY = new ConfigFileEntry("gimmick_frequency", getOrCreateInt("gimmick_frequency", 10),"season.democracy", "Gimmick Frequency", "How often Gimmick polls should get activated [in minutes]");
+        this.GIMMICK_COUNT = new ConfigFileEntry("gimmick_count", getOrCreateInt("gimmick_count", 2),"season.democracy", "Gimmick Count", "How many Gimmicks appear as a vote option in a poll. Minimal value is 1.");
+
+        this.GROUP_DEMOCRACY = new ConfigFileEntry("group_democracy", (Object)null, ConfigTypes.TEXT, "{season.democracy}", "Choose Your Life", "");
+
     }
     /*
     @Inject(at = @At("TAIL"), method = "onPlayerFinishJoining")

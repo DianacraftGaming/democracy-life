@@ -39,7 +39,17 @@ public class GimmickCommand {
                                     return 0;
                                 }
                         ))
-                        .then(literal("getActive").executes(
+                        .then(literal("list").executes(
+                                context -> {
+                                    ServerPlayerEntity player = context.getSource().getPlayerOrThrow();
+                                    if (player != null) {
+                                        player.sendMessage(Text.of("There are no gimmicks yet"));
+                                        return 1;
+                                    }
+                                    return 0;
+                                }
+                        ))
+                        .then(literal("listActive").executes(
                                 context -> {
                                     ServerPlayerEntity player = context.getSource().getPlayerOrThrow();
                                     if (player != null) {
