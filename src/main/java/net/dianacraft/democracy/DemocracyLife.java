@@ -1,6 +1,7 @@
 package net.dianacraft.democracy;
 
 import net.dianacraft.democracy.command.GimmickCommand;
+import net.dianacraft.democracy.command.VoteCommand;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
@@ -22,6 +23,7 @@ public class DemocracyLife implements ModInitializer {
 		CommandRegistrationCallback.EVENT.register((dispatcher, context, selection) -> {
 			// Registering /skin reload
 			GimmickCommand.register(dispatcher);
+			VoteCommand.register(dispatcher);
 		});
 	}
 }
