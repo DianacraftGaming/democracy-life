@@ -6,18 +6,19 @@ import java.util.List;
 
 public enum Gimmicks {
     NULL,
+    DO_NOTHING,
     MAKE_BOOGEYMAN,
     PLAYER_DIES;
 
     public Gimmick getInstance(){
         if (this == MAKE_BOOGEYMAN) return new MakeBoogeyman();
         if (this == PLAYER_DIES) return new PlayerDies();
+        if (this == DO_NOTHING) return new DoNothing();
 
         return null;
     }
 
     public String getStringName() {
-        if (this == NULL) return "none";
         return this.toString().toLowerCase();
     }
 
@@ -31,6 +32,7 @@ public enum Gimmicks {
     public static List<Gimmicks> getGimmicks() {
         List<Gimmicks> gimmicks = new ArrayList<>(List.of(Gimmicks.values()));
         gimmicks.remove(Gimmicks.NULL);
+        gimmicks.remove(Gimmicks.DO_NOTHING);
         return gimmicks;
     }
 

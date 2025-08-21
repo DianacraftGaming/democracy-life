@@ -55,8 +55,13 @@ public class PlayerDies extends Gimmick {
     }
 
     public void activate() {
+        if (player == null){
+            if (!isAvailable()) return;
+            player = randomisePlayer();
+        }
         player.kill(player.getWorld());
         DemocracyLife.LOGGER.info("[Gimmick] Killed " + player.getNameForScoreboard());
         SessionTranscript.addMessageWithTime("[Gimmick] Killed " + player.getNameForScoreboard());
     }
+    public void deactivate() {}
 }

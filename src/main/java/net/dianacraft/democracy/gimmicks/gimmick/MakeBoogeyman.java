@@ -48,4 +48,5 @@ public class MakeBoogeyman extends Gimmick {
         DemocracyLife.LOGGER.info("[Gimmick] Made " + player.getNameForScoreboard() + " into a Boogeyman.");
         SessionTranscript.addMessageWithTime("[Gimmick] Made " + player.getNameForScoreboard() + " into a Boogeyman.");
     }
+    public void deactivate() {}
 }
