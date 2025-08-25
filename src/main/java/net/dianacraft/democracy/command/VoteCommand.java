@@ -1,13 +1,20 @@
 package net.dianacraft.democracy.command;
 
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.StringArgumentType;
+import net.dianacraft.democracy.gimmicks.GimmickManager;
+import net.dianacraft.democracy.gimmicks.Gimmicks;
 import net.mat0u5.lifeseries.seasons.season.Seasons;
+import net.minecraft.command.CommandSource;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 
+import java.util.List;
+
 import static net.mat0u5.lifeseries.Main.currentSeason;
 import static net.mat0u5.lifeseries.utils.player.PermissionManager.isAdmin;
+import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
 public class VoteCommand {
@@ -22,32 +29,23 @@ public class VoteCommand {
                                 context -> {
                                     ServerPlayerEntity player = context.getSource().getPlayerOrThrow();
                                     if (player != null) {
-                                        player.sendMessage(Text.of("hi icey this is the main thing I'm working on rn"));
-                                        return 1;
+                                        GimmickManager.prepareVotes();
                                     }
                                     return 0;
                                 }
                         ))
-                        .then(literal("option1").executes(
-                                context -> {
-                                    ServerPlayerEntity player = context.getSource().getPlayerOrThrow();
-                                    if (player != null) {
-                                        player.sendMessage(Text.of("No vote in progress"));
-                                        return 1;
-                                    }
-                                    return 0;
-                                }
-                        ))
-                        .then(literal("option2").executes(
-                                context -> {
-                                    ServerPlayerEntity player = context.getSource().getPlayerOrThrow();
-                                    if (player != null) {
-                                        player.sendMessage(Text.of("No vote in progress"));
-                                        return 1;
-                                    }
-                                    return 0;
-                                }
+                        .then(argument("gimmick", StringArgumentType.greedyString())
+                            .suggests((context, builder) -> CommandSource.suggestMatching(suggestionsVoteGimmick(), builder))
+                            .executes(context -> {
+                                return 1;
+                            }
                         ))
         );
+    }
+
+    public static List<String> suggestionsVoteGimmick() {
+        List<String> voteOptions = GimmickManager.getVoteGimmicksStr();
+        //allGimmicks.add("*");
+        return voteOptions;
     }
 }

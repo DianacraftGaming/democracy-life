@@ -41,15 +41,12 @@ public class GimmickCommand {
                                         context.getSource(), StringArgumentType.getString(context, "gimmick"))
                                 )
                         ))
-                        .then(literal("deactivate").executes(
-                                context -> {
-                                    ServerPlayerEntity player = context.getSource().getPlayerOrThrow();
-                                    if (player != null) {
-                                        player.sendMessage(Text.of("Nothing to deactivate"));
-                                        return 1;
-                                    }
-                                    return 0;
-                                }
+                        .then(literal("deactivate")
+                                .then(argument("gimmick", StringArgumentType.greedyString())
+                                .suggests((context, builder) -> CommandSource.suggestMatching(suggestionsDeactivateGimmick(), builder))
+                                .executes(context -> deactivateGimmick(
+                                        context.getSource(), StringArgumentType.getString(context, "gimmick"))
+                                )
                         ))
                         .then(literal("list").executes(
                                 context -> listGimmicks(context.getSource())
@@ -107,6 +104,28 @@ public class GimmickCommand {
 
         actualGimmick.activate();
         OtherUtils.sendCommandFeedback(source, TextUtils.format("Activated {}", gimmickName));
+        return 1;
+    }
+
+    public static int deactivateGimmick(ServerCommandSource source, String gimmickName){
+        if (checkBanned(source)) return -1;
+        Gimmicks gimmick = Gimmicks.getFromString(gimmickName);
+        if (gimmick == Gimmicks.NULL) {
+            source.sendError(Text.of("That Gimmick doesn't exist"));
+            return -1;
+        }
+        if (!GimmickManager.isActiveGimmick(gimmick)) {
+            source.sendError(Text.of("That Gimmick is not active"));
+            return -1;
+        }
+        Gimmick actualGimmick = gimmick.getInstance();
+        if (actualGimmick == null) {
+            source.sendError(Text.of("That Gimmick has not been implemented yet"));
+            return -1;
+        }
+
+        actualGimmick.deactivate();
+        OtherUtils.sendCommandFeedback(source, TextUtils.format("Deactivated {}", gimmickName));
         return 1;
     }
 }
