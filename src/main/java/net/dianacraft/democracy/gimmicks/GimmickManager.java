@@ -11,10 +11,17 @@ import static net.mat0u5.lifeseries.Main.currentSeason;
 public class GimmickManager {
     public static final Map<Gimmicks, Gimmick> activeGimmicks = new HashMap<>();
     public static Map<Gimmicks, Gimmick> activeVotes = new HashMap<>();
+    public static Map<ServerPlayerEntity, Gimmicks> playerVotes = new HashMap<>();
+    public static boolean activeVote = false;
     //public static final Random rnd = new Random();
 
     public static void prepareVotes(){
+        if (activeVote) {
+            return;
+        }
+        activeVote = true;
         activeVotes = new HashMap<>();
+        playerVotes = new HashMap<>();
         List<Gimmicks> gimmickList = getValidGimmicks();
         Collections.shuffle(gimmickList);
         int gimmick_count = Integer.getInteger(currentSeason.getConfig().getProperty("gimmick_count"));
@@ -31,6 +38,38 @@ public class GimmickManager {
         Text message = Text.of(template + getVoteText());
         for (ServerPlayerEntity player : PlayerUtils.getAllPlayers()) {
             player.sendMessage(message, false);
+        }
+    }
+
+    public static void finaliseVotes(){
+        if (!activeVote) {
+            return;
+        }
+        activeVote = false;
+        List<Gimmicks> votes = playerVotes.values().stream().toList();
+        Map<Gimmicks, Integer> freqMap = new HashMap<>();
+        List<Gimmicks> randomCanditates = new ArrayList<>();
+
+        for (int i  = 0; i < votes.size(); i++){
+            freqMap.put(votes.get(i), freqMap.getOrDefault(votes.get(i), 0)+1);
+        }
+
+        int maxCount = -1;
+        Gimmicks winningVote = Gimmicks.NULL;
+
+        for (Gimmicks gimmick : votes){
+            if (freqMap.get(gimmick) > maxCount){
+                randomCanditates = new ArrayList<>();
+                randomCanditates.add(gimmick);
+            } else if (freqMap.get(gimmick) == maxCount) {
+                randomCanditates.add(gimmick);
+            }
+        }
+
+        if (!randomCanditates.isEmpty()){
+            Collections.shuffle(randomCanditates);
+            winningVote = randomCanditates.get(0);
+            activeVotes.get(winningVote).activate();
         }
     }
 
