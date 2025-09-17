@@ -14,7 +14,6 @@ import static net.mat0u5.lifeseries.Main.livesManager;
 
 public class PlayerDies extends Gimmick {
     public ServerPlayerEntity player;
-    public String voteText = "A random non-red player dies.";
     private boolean revealPlayers = true;
 
     public static boolean isAvailable(){
@@ -51,6 +50,8 @@ public class PlayerDies extends Gimmick {
             revealPlayers = true;
         if (player != null && revealPlayers){
             voteText = player.getNameForScoreboard() + " dies.";
+        } else {
+            voteText = "A random non-red player dies.";
         }
     }
 

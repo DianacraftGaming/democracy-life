@@ -13,7 +13,6 @@ import static net.mat0u5.lifeseries.Main.livesManager;
 
 public class MakeBoogeyman extends Gimmick {
     public ServerPlayerEntity player;
-    public String voteText = "Turn a random non-red player into a Boogeyman";
     private boolean revealBoogeyman = false;
 
     public MakeBoogeyman(){
@@ -22,6 +21,8 @@ public class MakeBoogeyman extends Gimmick {
             revealBoogeyman = true;
         if (player != null && revealBoogeyman){
             voteText = "Turn " + player.getNameForScoreboard() + " into a Boogeyman.";
+        } else {
+            voteText = "Turn a random non-red player into a Boogeyman";
         }
     }
 

@@ -30,7 +30,7 @@ public class VoteCommand {
                 literal("vote").requires(source -> isAllowed())
                         .then(literal("start").requires(source -> (isAdmin(source.getPlayer()) || (source.getEntity() == null))).executes(
                                 context -> {
-                                    validText(false, context);
+                                    //validText(false, context);
                                     GimmickManager.prepareVotes();
                                     return 0;
                                 }

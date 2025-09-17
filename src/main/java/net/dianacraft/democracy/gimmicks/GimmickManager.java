@@ -17,14 +17,14 @@ public class GimmickManager {
 
     public static void prepareVotes(){
         if (activeVote) {
-            return;
+            //return;
         }
         activeVote = true;
         activeVotes = new HashMap<>();
         playerVotes = new HashMap<>();
         List<Gimmicks> gimmickList = getValidGimmicks();
         Collections.shuffle(gimmickList);
-        int gimmick_count = Integer.getInteger(currentSeason.getConfig().getProperty("gimmick_count"));
+        int gimmick_count = Integer.parseInt(currentSeason.getConfig().getProperty("gimmick_count"));
         gimmick_count = Integer.min(gimmick_count, Gimmicks.getGimmicks().size());
         gimmick_count = Integer.max(gimmick_count, 1);
         for (int i = 0; i < gimmick_count; i++) {
@@ -33,8 +33,7 @@ public class GimmickManager {
         if (gimmick_count == 1){
             activeVotes.put(Gimmicks.NOTHING_HAPPENS, Gimmicks.NOTHING_HAPPENS.getInstance());
         }
-
-        String template = "§6§l§nChoose Your Life\n§rThe time has come for a new gimmick poll! Whichever gimmick gets the most votes will activate in 1 minute!. Vote with /vote\n§nYour options are:§r\n";
+        String template = "§6§l§nChoose Your Life§r\nThe time has come for a new gimmick poll!\nWhichever gimmick gets the most votes will activate in 1 minute!.\nVote with /vote\n\n§nYour options are:§r";
         Text message = Text.of(template + getVoteText());
         for (ServerPlayerEntity player : PlayerUtils.getAllPlayers()) {
             player.sendMessage(message, false);
