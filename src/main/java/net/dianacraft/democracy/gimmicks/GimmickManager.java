@@ -1,5 +1,6 @@
 package net.dianacraft.democracy.gimmicks;
 
+import net.mat0u5.lifeseries.utils.other.TaskScheduler;
 import net.mat0u5.lifeseries.utils.player.PlayerUtils;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
@@ -7,6 +8,7 @@ import net.minecraft.text.Text;
 import java.util.*;
 
 import static net.mat0u5.lifeseries.Main.currentSeason;
+import static net.mat0u5.lifeseries.utils.other.OtherUtils.minutesToTicks;
 
 public class GimmickManager {
     public static final Map<Gimmicks, Gimmick> activeGimmicks = new HashMap<>();
@@ -17,7 +19,7 @@ public class GimmickManager {
 
     public static void prepareVotes(){
         if (activeVote) {
-            //return;
+            return;
         }
         activeVote = true;
         activeVotes = new HashMap<>();
@@ -49,8 +51,8 @@ public class GimmickManager {
         Map<Gimmicks, Integer> freqMap = new HashMap<>();
         List<Gimmicks> randomCanditates = new ArrayList<>();
 
-        for (int i  = 0; i < votes.size(); i++){
-            freqMap.put(votes.get(i), freqMap.getOrDefault(votes.get(i), 0)+1);
+        for (Gimmicks vote : votes) {
+            freqMap.put(vote, freqMap.getOrDefault(vote, 0) + 1);
         }
 
         int maxCount = -1;
@@ -65,11 +67,15 @@ public class GimmickManager {
             }
         }
 
-        if (!randomCanditates.isEmpty()){
-            Collections.shuffle(randomCanditates);
-            winningVote = randomCanditates.get(0);
-            activeVotes.get(winningVote).activate();
+        if (randomCanditates.isEmpty()){
+            randomCanditates = activeVotes.keySet().stream().toList();
         }
+        Collections.shuffle(new ArrayList<>(Arrays.asList(randomCanditates.toArray())));
+        winningVote = randomCanditates.getFirst();
+        activeVotes.get(winningVote).activate();
+
+        activeVotes = new HashMap<>();
+        playerVotes = new HashMap<>();
     }
 
     public static boolean isActiveGimmick(Gimmicks gimmick){

@@ -14,7 +14,7 @@ import static net.mat0u5.lifeseries.Main.livesManager;
 
 public class PlayerDies extends Gimmick {
     public ServerPlayerEntity player;
-    private boolean revealPlayers = true;
+    private boolean revealPlayers = false;
 
     public static boolean isAvailable(){
         return !getAvailablePlayers().isEmpty();

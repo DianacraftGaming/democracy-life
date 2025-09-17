@@ -30,7 +30,7 @@ public class VoteCommand {
                 literal("vote").requires(source -> isAllowed())
                         .then(literal("start").requires(source -> (isAdmin(source.getPlayer()) || (source.getEntity() == null))).executes(
                                 context -> {
-                                    //validText(false, context);
+                                    validText(false, context);
                                     GimmickManager.prepareVotes();
                                     return 0;
                                 }
@@ -80,7 +80,7 @@ public class VoteCommand {
             player.sendMessage(Text.of("§cYour choice doesn't matter, just enjoy the show."), false);
             return 0;
         }
-        if (currentSeason.getConfig().getProperty("vote").equalsIgnoreCase("false") && GimmickManager.playerVotes.containsKey(player)){
+        if (currentSeason.getConfig().getProperty("vote_recast").equalsIgnoreCase("false") && GimmickManager.playerVotes.containsKey(player)){
             player.sendMessage(Text.of("§eYou already voted in this poll!"), false);
             return 0;
         }
