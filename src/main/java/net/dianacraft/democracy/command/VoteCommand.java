@@ -14,8 +14,7 @@ import net.minecraft.text.Text;
 import java.util.List;
 
 import static net.dianacraft.democracy.gimmicks.GimmickManager.activeVote;
-import static net.mat0u5.lifeseries.Main.currentSeason;
-import static net.mat0u5.lifeseries.Main.livesManager;
+import static net.mat0u5.lifeseries.Main.*;
 import static net.mat0u5.lifeseries.utils.player.PermissionManager.isAdmin;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
@@ -80,7 +79,7 @@ public class VoteCommand {
             player.sendMessage(Text.of("§cYour choice doesn't matter, just enjoy the show."), false);
             return 0;
         }
-        if (currentSeason.getConfig().getProperty("vote_recast").equalsIgnoreCase("false") && GimmickManager.playerVotes.containsKey(player)){
+        if (seasonConfig.getProperty("vote_recast").equalsIgnoreCase("false") && GimmickManager.playerVotes.containsKey(player)){
             player.sendMessage(Text.of("§eYou already voted in this poll!"), false);
             return 0;
         }

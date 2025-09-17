@@ -1,5 +1,6 @@
 package net.dianacraft.democracy.gimmicks;
 
+import net.mat0u5.lifeseries.seasons.session.SessionAction;
 import net.mat0u5.lifeseries.utils.other.TaskScheduler;
 import net.mat0u5.lifeseries.utils.player.PlayerUtils;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -7,7 +8,7 @@ import net.minecraft.text.Text;
 
 import java.util.*;
 
-import static net.mat0u5.lifeseries.Main.currentSeason;
+import static net.mat0u5.lifeseries.Main.*;
 import static net.mat0u5.lifeseries.utils.other.OtherUtils.minutesToTicks;
 
 public class GimmickManager {
@@ -26,7 +27,7 @@ public class GimmickManager {
         playerVotes = new HashMap<>();
         List<Gimmicks> gimmickList = getValidGimmicks();
         Collections.shuffle(gimmickList);
-        int gimmick_count = Integer.parseInt(currentSeason.getConfig().getProperty("gimmick_count"));
+        int gimmick_count = Integer.parseInt(seasonConfig.getProperty("gimmick_count"));
         gimmick_count = Integer.min(gimmick_count, Gimmicks.getGimmicks().size());
         gimmick_count = Integer.max(gimmick_count, 1);
         for (int i = 0; i < gimmick_count; i++) {
@@ -40,6 +41,14 @@ public class GimmickManager {
         for (ServerPlayerEntity player : PlayerUtils.getAllPlayers()) {
             player.sendMessage(message, false);
         }
+
+
+        currentSession.addSessionAction(new SessionAction(currentSession.getPassedTime() + minutesToTicks(Integer.parseInt(seasonConfig.getProperty("vote_time")))) {
+            @Override
+            public void trigger() {
+                finaliseVotes();
+            }
+        });
     }
 
     public static void finaliseVotes(){
@@ -76,6 +85,14 @@ public class GimmickManager {
 
         activeVotes = new HashMap<>();
         playerVotes = new HashMap<>();
+
+
+        currentSession.addSessionAction(new SessionAction(currentSession.getPassedTime() + minutesToTicks(Integer.parseInt(seasonConfig.getProperty("gimmick_frequency")))) {
+            @Override
+            public void trigger() {
+                prepareVotes();
+            }
+        });
     }
 
     public static boolean isActiveGimmick(Gimmicks gimmick){

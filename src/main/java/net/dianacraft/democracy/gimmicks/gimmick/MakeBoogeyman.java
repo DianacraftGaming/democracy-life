@@ -8,8 +8,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import java.util.Collections;
 import java.util.List;
 
-import static net.mat0u5.lifeseries.Main.currentSeason;
-import static net.mat0u5.lifeseries.Main.livesManager;
+import static net.mat0u5.lifeseries.Main.*;
 
 public class MakeBoogeyman extends Gimmick {
     public ServerPlayerEntity player;
@@ -17,7 +16,7 @@ public class MakeBoogeyman extends Gimmick {
 
     public MakeBoogeyman(){
         player = randomisePlayer();
-        if (currentSeason.getConfig().getProperty("reveal_boogeyman").equalsIgnoreCase("true"))
+        if (seasonConfig.getProperty("reveal_boogeyman").equalsIgnoreCase("true"))
             revealBoogeyman = true;
         if (player != null && revealBoogeyman){
             voteText = "Turn " + player.getNameForScoreboard() + " into a Boogeyman.";
