@@ -3,7 +3,12 @@ package net.dianacraft.democracy.gimmicks.gimmick;
 import net.dianacraft.democracy.DemocracyLife;
 import net.dianacraft.democracy.gimmicks.Gimmick;
 import net.mat0u5.lifeseries.seasons.session.SessionTranscript;
+import net.mat0u5.lifeseries.utils.player.PlayerUtils;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 
 import java.util.Collections;
 import java.util.List;
@@ -45,6 +50,8 @@ public class MakeBoogeyman extends Gimmick {
             player = randomisePlayer();
         }
         currentSeason.boogeymanManager.addBoogeyman(player);
+        PlayerUtils.sendTitle(player, Text.literal("You are now The Boogeyman").formatted(Formatting.RED), 10, 40, 10);
+        PlayerUtils.playSoundToPlayer(player, SoundEvent.of(Identifier.of("minecraft", "lastlife_boogeyman_yes")));
         DemocracyLife.LOGGER.info("[Gimmick] Made " + player.getNameForScoreboard() + " into a Boogeyman.");
         SessionTranscript.addMessageWithTime("[Gimmick] Made " + player.getNameForScoreboard() + " into a Boogeyman.");
     }

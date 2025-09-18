@@ -13,12 +13,12 @@ public abstract class Gimmick {
     }
 
     public void activate() {
-        DemocracyLife.LOGGER.info("Activated a Gimmick");
-        SessionTranscript.addMessageWithTime("Activated a Gimmick");
+        DemocracyLife.LOGGER.info("[Gimmick] Activated a Gimmick");
+        SessionTranscript.addMessageWithTime("[Gimmick] Activated a Gimmick");
     };
     public void deactivate() {
-        DemocracyLife.LOGGER.info("Deactivated a Gimmick");
-        SessionTranscript.addMessageWithTime("Deactivated a Gimmick");
+        DemocracyLife.LOGGER.info("[Gimmick] Deactivated a Gimmick");
+        SessionTranscript.addMessageWithTime("[Gimmick] Deactivated a Gimmick");
     };
 
     public void tickSessionOn() {}

@@ -9,13 +9,17 @@ public enum Gimmicks {
     NOTHING_HAPPENS,
     MAKE_BOOGEYMAN,
     PLAYER_DIES,
-    LIFE_GAMBLING;
+    LIFE_GAMBLING,
+    MAKE_GOLDEN,
+    RANDOM_TELEPORT;
 
     public Gimmick getInstance(){
         if (this == MAKE_BOOGEYMAN) return new MakeBoogeyman();
         if (this == PLAYER_DIES) return new PlayerDies();
         if (this == NOTHING_HAPPENS) return new NothingHappens();
         if (this == LIFE_GAMBLING) return new LifeGambling();
+        if (this == MAKE_GOLDEN) return new MakeGolden();
+        if (this == RANDOM_TELEPORT) return new RandomTeleport();
 
         return null;
     }

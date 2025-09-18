@@ -82,7 +82,7 @@ public class VoteCommand {
         if (seasonConfig.getProperty("vote_recast").equalsIgnoreCase("false") && GimmickManager.playerVotes.containsKey(player)){
             player.sendMessage(Text.of("§eYou already voted in this poll!"), false);
             return 0;
-        }
+        } // check if its a valid gimmick
         GimmickManager.playerVotes.put(player, Gimmicks.getFromString(gimmick));
         player.sendMessage(Text.of("§aVoted for " + gimmick + " successfully!"), false);
         return 1;
