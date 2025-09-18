@@ -15,7 +15,7 @@ public class PlayerDies extends Gimmick {
     public ServerPlayerEntity player;
     private boolean revealPlayers = false;
 
-    public static boolean isAvailable(){
+    public boolean isAvailable(){
         return !getAvailablePlayers().isEmpty();
     }
 

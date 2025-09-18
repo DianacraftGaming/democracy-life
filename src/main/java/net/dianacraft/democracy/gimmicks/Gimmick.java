@@ -8,7 +8,7 @@ public abstract class Gimmick {
     public int length = -1;
     public String voteText = "Activate a Gimmick";
 
-    public static boolean isAvailable(){
+    public boolean isAvailable(){
         return false;
     }
 

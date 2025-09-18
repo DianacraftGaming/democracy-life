@@ -19,8 +19,8 @@ public class LifeGambling extends Gimmick {
         voteText = "Everyone gets a 40/60 chance to either gain or lose a life";
     }
 
-    public static boolean isAvailable(){
-        return true;
+    public boolean isAvailable(){
+        return !currentSeason.livesManager.getAlivePlayers().isEmpty();
     }
 
     public void activate() {

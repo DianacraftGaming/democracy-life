@@ -42,8 +42,8 @@ public class MakeGolden extends Gimmick {
         return null;
     }
 
-    public static boolean isAvailable(){
-        return true;
+    public boolean isAvailable(){
+        return !currentSeason.livesManager.getAlivePlayers().isEmpty();
     }
 
     public void activate() {

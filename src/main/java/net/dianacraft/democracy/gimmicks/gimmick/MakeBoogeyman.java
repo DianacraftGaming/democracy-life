@@ -24,13 +24,13 @@ public class MakeBoogeyman extends Gimmick {
         if (seasonConfig.getProperty("reveal_boogeyman").equalsIgnoreCase("true"))
             revealBoogeyman = true;
         if (player != null && revealBoogeyman){
-            voteText = "Turn " + player.getNameForScoreboard() + " into a Boogeyman.";
+            voteText = player.getNameForScoreboard() + "turns into a Boogeyman.";
         } else {
-            voteText = "Turn a random non-red player into a Boogeyman";
+            voteText = "A random non-red player turns into a Boogeyman";
         }
     }
 
-    public static boolean isAvailable(){
+    public boolean isAvailable(){
         List<ServerPlayerEntity> nonRedPlayers = livesManager.getNonRedPlayers();
         return !nonRedPlayers.isEmpty();
     }

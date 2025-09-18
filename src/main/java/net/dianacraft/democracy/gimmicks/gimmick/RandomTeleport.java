@@ -21,7 +21,7 @@ public class RandomTeleport extends Gimmick {
         voteText = "Everyone gets a teleported randomly";
     }
 
-    public static boolean isAvailable(){
+    public boolean isAvailable(){
         return true;
     }
 

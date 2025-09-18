@@ -29,7 +29,7 @@ public class GimmickManager {
         List<Gimmicks> gimmickList = getValidGimmicks();
         Collections.shuffle(gimmickList);
         int gimmick_count = Integer.parseInt(seasonConfig.getProperty("gimmick_count"));
-        gimmick_count = Integer.min(gimmick_count, Gimmicks.getGimmicks().size());
+        gimmick_count = Integer.min(gimmick_count, gimmickList.size());
         gimmick_count = Integer.max(gimmick_count, 1);
         for (int i = 0; i < gimmick_count; i++) {
             activeVotes.put(gimmickList.get(i), gimmickList.get(i).getInstance());
@@ -114,6 +114,7 @@ public class GimmickManager {
     public static List<Gimmicks> getValidGimmicks() {
         List<Gimmicks> result = Gimmicks.getGimmicks();
         result.removeIf(gimmick -> activeVotes.containsKey(gimmick));
+        result.removeIf(gimmick -> !gimmick.getInstance().isAvailable());//result.removeIf(gimmick -> !gimmick.getInstance().isAvailable());
         return result;
     }
 
