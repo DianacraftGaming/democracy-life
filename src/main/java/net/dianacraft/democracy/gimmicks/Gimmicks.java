@@ -8,12 +8,14 @@ public enum Gimmicks {
     NULL,
     NOTHING_HAPPENS,
     MAKE_BOOGEYMAN,
-    PLAYER_DIES;
+    PLAYER_DIES,
+    LIFE_GAMBLING;
 
     public Gimmick getInstance(){
         if (this == MAKE_BOOGEYMAN) return new MakeBoogeyman();
         if (this == PLAYER_DIES) return new PlayerDies();
         if (this == NOTHING_HAPPENS) return new NothingHappens();
+        if (this == LIFE_GAMBLING) return new LifeGambling();
 
         return null;
     }
@@ -25,7 +27,7 @@ public enum Gimmicks {
     public static Gimmicks getFromString(String gimmick) {
         try {
             return Enum.valueOf(Gimmicks.class, gimmick.toUpperCase());
-        } catch(Exception e) {}
+        } catch(Exception ignored) {}
         return Gimmicks.NULL;
     }
 

@@ -15,13 +15,25 @@ import static net.mat0u5.lifeseries.utils.other.OtherUtils.minutesToTicks;
 
 @Mixin(RealLife.class)
 public class SeasonMixin extends ThirdLife {
+
+
     public void addSessionActions(){
         currentSession.addSessionAction(new SessionAction(minutesToTicks(Integer.parseInt(seasonConfig.getProperty("vote_time"))) + minutesToTicks(Integer.parseInt(seasonConfig.getProperty("gimmick_frequency")))/2) {
             @Override
             public void trigger() {
-                prepareVotes();
+                prepareVotes(true);
             }
         });
+    }
+
+    public static final String COMMANDS_ADMIN_TEXT = "/lifeseries, /session, /claimkill, /lives, /gimmick, /vote";
+    public static final String COMMANDS_TEXT = "/claimkill, /lives, /vote";
+
+    public String getAdminCommands() {
+        return COMMANDS_ADMIN_TEXT;
+    }
+    public String getNonAdminCommands() {
+        return COMMANDS_TEXT;
     }
 
 	/*

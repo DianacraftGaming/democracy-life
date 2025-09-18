@@ -30,14 +30,14 @@ public class VoteCommand {
                         .then(literal("start").requires(source -> (isAdmin(source.getPlayer()) || (source.getEntity() == null))).executes(
                                 context -> {
                                     validText(false, context);
-                                    GimmickManager.prepareVotes();
+                                    GimmickManager.prepareVotes(false);
                                     return 0;
                                 }
                         ))
                         .then(literal("end").requires(source -> (isAdmin(source.getPlayer()) || (source.getEntity() == null))).executes(
                                 context -> {
                                     validText(true, context);
-                                    GimmickManager.finaliseVotes();
+                                    GimmickManager.finaliseVotes(false);
                                     return 0;
                                 }
                         ))
