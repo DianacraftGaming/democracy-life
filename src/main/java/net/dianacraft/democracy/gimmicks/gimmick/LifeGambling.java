@@ -12,11 +12,19 @@ import net.minecraft.util.Formatting;
 import java.util.List;
 
 import static net.mat0u5.lifeseries.Main.currentSeason;
+import static net.mat0u5.lifeseries.Main.seasonConfig;
 
 public class LifeGambling extends Gimmick {
 
+    private int winChance = 40;
+
     public LifeGambling(){
-        voteText = "Everyone gets a 40/60 chance to either gain or lose a life";
+        winChance = Integer.parseInt(seasonConfig.getProperty("gambling_winchance"));
+        winChance = Math.min(winChance, 99);
+        winChance = Math.max(winChance, 1);
+        int loseChance = 100 - winChance;
+
+        voteText = "Everyone gets a "+winChance+"/"+loseChance+" chance to either gain or lose a life";
     }
 
     public boolean isAvailable(){
@@ -27,7 +35,7 @@ public class LifeGambling extends Gimmick {
         List<ServerPlayerEntity> activePlayers = currentSeason.livesManager.getAlivePlayers();
 
         for (ServerPlayerEntity player : activePlayers){
-            if (Math.random() >= 0.4){
+            if (Math.random() >= (double) winChance / 100){
                 currentSeason.livesManager.removePlayerLife(player);
                 DemocracyLife.LOGGER.info("[Gimmick] " + player.getNameForScoreboard() + " lost a life.");
                 SessionTranscript.addMessageWithTime("[Gimmick] " + player.getNameForScoreboard() + " lost a life.");

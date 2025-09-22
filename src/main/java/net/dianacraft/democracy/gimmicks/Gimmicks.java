@@ -13,7 +13,9 @@ public enum Gimmicks {
     MAKE_GOLDEN,
     RANDOM_TELEPORT,
     REMARRY,
-    GREENS_DIE;
+    GREENS_DIE,
+    GET_CAKE,
+    JOEY_WINDS;
 
     public Gimmick getInstance(){
         if (this == MAKE_BOOGEYMAN) return new MakeBoogeyman();
@@ -24,6 +26,8 @@ public enum Gimmicks {
         if (this == RANDOM_TELEPORT) return new RandomTeleport();
         if (this == REMARRY) return new Remarry();
         if (this == GREENS_DIE) return new GreensDie();
+        if (this == GET_CAKE) return new GetCake();
+        if (this == JOEY_WINDS) return new JoeyWinds();
 
         return null;
     }

@@ -1,9 +1,11 @@
 package net.dianacraft.democracy.mixin;
 
+import net.dianacraft.democracy.gimmicks.GimmickManager;
 import net.dianacraft.democracy.gimmicks.Gimmicks;
 import net.mat0u5.lifeseries.seasons.season.aprilfools.reallife.RealLife;
 import net.mat0u5.lifeseries.seasons.season.thirdlife.ThirdLife;
 import net.mat0u5.lifeseries.seasons.session.SessionAction;
+import net.mat0u5.lifeseries.utils.player.PlayerUtils;
 import net.mat0u5.lifeseries.utils.player.TeamUtils;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Formatting;
@@ -63,6 +65,16 @@ public class SeasonMixin extends ThirdLife {
             livesManager.addPlayerLife(killer);
             currentSeason.reloadPlayerTeam(victim);
             activeGimmicks.get(Gimmicks.MAKE_GOLDEN).deactivate();
+        }
+    }
+
+    @Override
+    public void onPlayerJoin(ServerPlayerEntity player) {
+        super.onPlayerJoin(player);
+        if(GimmickManager.isActiveGimmick(Gimmicks.MAKE_GOLDEN)){
+            if (activeGimmicks.get(Gimmicks.MAKE_GOLDEN).player.equals(player)){
+                TeamUtils.addEntityToTeam("golden", player);
+            }
         }
     }
 

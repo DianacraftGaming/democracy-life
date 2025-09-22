@@ -38,6 +38,7 @@ public class MakeBoogeyman extends Gimmick {
     private ServerPlayerEntity randomisePlayer(){
         List<ServerPlayerEntity> nonRedPlayers = livesManager.getNonRedPlayers();
         if (!nonRedPlayers.isEmpty()) {
+            nonRedPlayers.removeIf(player -> currentSeason.boogeymanManager.BOOGEYMAN_IGNORE.contains(player.getNameForScoreboard().toLowerCase()));
             Collections.shuffle(nonRedPlayers);
             return nonRedPlayers.getFirst();
         }

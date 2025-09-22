@@ -9,7 +9,12 @@ import static net.mat0u5.lifeseries.Main.currentSeason;
 
 public class GreensDie extends Gimmick {
     public GreensDie(){
-        voteText = "All Green and Dark Green players die";
+        voteText = "All Green players die";
+        for(ServerPlayerEntity player : currentSeason.livesManager.getAlivePlayers()) {
+            if (currentSeason.livesManager.isOnAtLeastLives(player, 4, false)) {
+                voteText = "All Green and Dark Green players die";
+            }
+        }
     }
 
     @Override

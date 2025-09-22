@@ -26,24 +26,33 @@ public class ConfigMixin extends ThirdLifeConfig {
     private ConfigFileEntry<Boolean> REVEAL_BOOGEYMAN;
     private ConfigFileEntry<Boolean> REVEAL_PLAYERS;
 
+    private ConfigFileEntry<Integer> GAMBLING_WINCHANCE;
+    private ConfigFileEntry<Integer> CAKE_WAITTIME;
+
     public ConfigFileEntry<Object> GROUP_DEMOCRACY;
     public ConfigFileEntry<Object> GROUP_DEMOCRACY_GIMMICKS;
     public ConfigFileEntry<Object> GROUP_DEMOCRACY_GIMMICKS_EXTENDED;
 
     private void initialiseEntries(){
+        this.GROUP_DEMOCRACY = new ConfigFileEntry("group_democracy", (Object)null, ConfigTypes.TEXT, "{season.democracy}", "Choose Your Life [General]", "");
         this.RELIFE_MODE = new ConfigFileEntry("relife_mode", false,"season.democracy", "ReLife Mode", "Changes some randomised player gimmicks into preset players from ReLife Series. If none of the ReLifers are present, disables those gimmicks from activating.");
         this.GIMMICK_FREQUENCY = new ConfigFileEntry("gimmick_frequency", 9,"season.democracy", "Gimmick Frequency", "How often Gimmick polls should get activated [in minutes]. Does not include the voting time");
         this.VOTE_TIME = new ConfigFileEntry("vote_time", 1,"season.democracy", "Voting Time", "How long a Gimmick poll lasts [in minutes]");
         this.GIMMICK_COUNT = new ConfigFileEntry("gimmick_count", 2,"season.democracy", "Gimmick Count", "How many Gimmicks appear as a vote option in a poll. Minimal value is 1.");
         this.VOTE_RECAST = new ConfigFileEntry("vote_recast", false,"season.democracy", "Vote Recasting", "Whether players should be able to recast their votes.");
 
+        this.GROUP_DEMOCRACY_GIMMICKS = new ConfigFileEntry("group_democracygimmicks", (Object)null, ConfigTypes.TEXT, "{season.democracygimmicks}", "Choose Your Life [Gimmicks]", "");
         this.AI_OBFUSCATION = new ConfigFileEntry("ai_obfuscation", true,"season.democracygimmicks", "Ai Obfuscation", "Whether AIs that replace players should have a robotic voice overlay");
         this.REVEAL_BOOGEYMAN = new ConfigFileEntry("reveal_boogeyman", false,"season.democracygimmicks", "Reveal Boogeyman", "Whether \"Turn a random player into a boogeyman\" gimmick should specify the name of the chosen player.");
         this.REVEAL_PLAYERS = new ConfigFileEntry("reveal_players", true,"season.democracygimmicks", "Reveal Players", "Whether gimmicks that use a random player should specify the name of the chosen player.");
 
-        this.GROUP_DEMOCRACY = new ConfigFileEntry("group_democracy", (Object)null, ConfigTypes.TEXT, "{season.democracy}", "Choose Your Life [General]", "");
-        this.GROUP_DEMOCRACY_GIMMICKS = new ConfigFileEntry("group_democracygimmicks", (Object)null, ConfigTypes.TEXT, "{season.democracygimmicks}", "Choose Your Life [Gimmicks]", "");
         this.GROUP_DEMOCRACY_GIMMICKS_EXTENDED = new ConfigFileEntry("group_democracygimmicksextended", (Object)null, ConfigTypes.TEXT, "{season.democracygimmicks}", "Extended Gimmick Settings", "");
+        this.GAMBLING_WINCHANCE = new ConfigFileEntry<>("gambling_winchance", 40, "season.democracygimmicksextended", "Gambling win chance", "How likely you are to gain a life in life_gambling [in percents]");
+        this.CAKE_WAITTIME = new ConfigFileEntry<>("cake_waittime", 10, "season.democracygimmicksextended", "Cake delivery time", "How long it takes for get_cake to activate");
+
+
+
+
     }
 
     public void instantiateProperties(){
@@ -54,6 +63,23 @@ public class ConfigMixin extends ThirdLifeConfig {
 
     protected List<ConfigFileEntry<?>> getSeasonSpecificConfigEntries() {
         initialiseEntries();
-        return new ArrayList(List.of(this.GROUP_DEMOCRACY, this.GROUP_DEMOCRACY_GIMMICKS, this.RELIFE_MODE, this.GIMMICK_COUNT, this.GIMMICK_FREQUENCY, this.VOTE_TIME, this.VOTE_RECAST, this.AI_OBFUSCATION, this.REVEAL_BOOGEYMAN, this.REVEAL_PLAYERS));
+        return new ArrayList(List.of(
+                this.GROUP_DEMOCRACY,
+                this.GROUP_DEMOCRACY_GIMMICKS,
+                this.GROUP_DEMOCRACY_GIMMICKS_EXTENDED,
+
+                this.RELIFE_MODE,
+                this.GIMMICK_COUNT,
+                this.GIMMICK_FREQUENCY,
+                this.VOTE_TIME,
+                this.VOTE_RECAST,
+
+                this.AI_OBFUSCATION,
+                this.REVEAL_BOOGEYMAN,
+                this.REVEAL_PLAYERS,
+
+                this.GAMBLING_WINCHANCE,
+                this.CAKE_WAITTIME
+        ));
     }
 }
