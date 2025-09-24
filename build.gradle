@@ -32,6 +32,10 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	modImplementation "maven.modrinth:life-series:${project.lifeseries_version}"
+
+	// Compile only for compatibility
+	modCompileOnly "maven.modrinth:lifeskins:${project.lifeskins_version}"
+	//modImplementation "maven.modrinth:lifeskins:${project.lifeskins_version}"
 }
 
 processResources {

@@ -15,7 +15,13 @@ public enum Gimmicks {
     REMARRY,
     GREENS_DIE,
     GET_CAKE,
-    JOEY_WINDS;
+    JOEY_WINDS,
+    COPY_PLAYER,
+    DINNER_TIME,
+    GET_BEDROCK,
+    GET_NUGGETS,
+    GET_PORTAL,
+    YELLOW_GIFT;
 
     public Gimmick getInstance(){
         if (this == MAKE_BOOGEYMAN) return new MakeBoogeyman();
@@ -28,6 +34,12 @@ public enum Gimmicks {
         if (this == GREENS_DIE) return new GreensDie();
         if (this == GET_CAKE) return new GetCake();
         if (this == JOEY_WINDS) return new JoeyWinds();
+        if (this == COPY_PLAYER) return new CopyPlayer();
+        if (this == DINNER_TIME) return new DinnerTime();
+        if (this == GET_BEDROCK) return new GetBedrock();
+        if (this == GET_NUGGETS) return new GetNuggets();
+        if (this == GET_PORTAL) return new GetPortal();
+        if (this == YELLOW_GIFT) return new YellowGift();
 
         return null;
     }
