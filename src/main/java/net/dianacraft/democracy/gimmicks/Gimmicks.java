@@ -21,6 +21,12 @@ public enum Gimmicks {
     GET_BEDROCK,
     GET_NUGGETS,
     GET_PORTAL,
+    GET_TNT,
+    GET_WIND,
+    HIDE_LIVES,
+    LIFE_SWAP,
+    RED_ENCHANTER,
+    RED_GIFT,
     YELLOW_GIFT;
 
     public Gimmick getInstance(){
@@ -40,6 +46,12 @@ public enum Gimmicks {
         if (this == GET_NUGGETS) return new GetNuggets();
         if (this == GET_PORTAL) return new GetPortal();
         if (this == YELLOW_GIFT) return new YellowGift();
+        if (this == GET_TNT) return new GetTNT();
+        if (this == GET_WIND) return new GetWind();
+        if (this == HIDE_LIVES) return new HideLives();
+        if (this == LIFE_SWAP) return new LifeSwap();
+        if (this == RED_ENCHANTER) return new RedEnchanter();
+        if (this == RED_GIFT) return new RedGift();
 
         return null;
     }

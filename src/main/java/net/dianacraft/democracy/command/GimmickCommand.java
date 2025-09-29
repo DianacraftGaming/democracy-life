@@ -59,6 +59,11 @@ public class GimmickCommand {
 
     public static List<String> suggestionsActivateGimmick() {
         List<String> allGimmicks = Gimmicks.getInactiveGimmicksStr();
+        for (Gimmicks gimmick : Gimmicks.getInactiveGimmicks()) {
+            if (!gimmick.getInstance().isAvailable()){
+                allGimmicks.remove(gimmick.getStringName());
+            }
+        }
         //allGimmicks.add("*");
         return allGimmicks;
     }
@@ -102,8 +107,13 @@ public class GimmickCommand {
             return -1;
         }
 
-        actualGimmick.activate();
-        OtherUtils.sendCommandFeedback(source, TextUtils.format("Activated {}", gimmickName));
+        if (actualGimmick.isAvailable()){
+            actualGimmick.activate();
+            OtherUtils.sendCommandFeedback(source, TextUtils.format("Activated {}", gimmickName));
+        } else {
+            OtherUtils.sendCommandFeedback(source, TextUtils.format("{} is not currently available!", gimmickName));
+        }
+
         return 1;
     }
 

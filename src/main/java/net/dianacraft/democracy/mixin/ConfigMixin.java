@@ -21,17 +21,18 @@ public class ConfigMixin extends ThirdLifeConfig {
     private ConfigFileEntry<Integer> GIMMICK_COUNT;
     private ConfigFileEntry<Integer> VOTE_TIME;
     private ConfigFileEntry<Boolean> VOTE_RECAST;
-
-    private ConfigFileEntry<Boolean> AI_OBFUSCATION;
     private ConfigFileEntry<Boolean> REVEAL_BOOGEYMAN;
     private ConfigFileEntry<Boolean> REVEAL_PLAYERS;
 
+    private ConfigFileEntry<Boolean> AI_OBFUSCATION;
     private ConfigFileEntry<Integer> GAMBLING_WINCHANCE;
     private ConfigFileEntry<Integer> CAKE_WAITTIME;
+    private ConfigFileEntry<Integer> TEAMHIDE_DURATION;
+    private ConfigFileEntry<Boolean> HIDE_GOLDENS;
 
     public ConfigFileEntry<Object> GROUP_DEMOCRACY;
     public ConfigFileEntry<Object> GROUP_DEMOCRACY_GIMMICKS;
-    public ConfigFileEntry<Object> GROUP_DEMOCRACY_GIMMICKS_EXTENDED;
+    //public ConfigFileEntry<Object> GROUP_DEMOCRACY_GIMMICKS_EXTENDED;
 
     private void initialiseEntries(){
         this.GROUP_DEMOCRACY = new ConfigFileEntry("group_democracy", (Object)null, ConfigTypes.TEXT, "{season.democracy}", "Choose Your Life [General]", "");
@@ -40,18 +41,16 @@ public class ConfigMixin extends ThirdLifeConfig {
         this.VOTE_TIME = new ConfigFileEntry("vote_time", 1,"season.democracy", "Voting Time", "How long a Gimmick poll lasts [in minutes]");
         this.GIMMICK_COUNT = new ConfigFileEntry("gimmick_count", 2,"season.democracy", "Gimmick Count", "How many Gimmicks appear as a vote option in a poll. Minimal value is 1.");
         this.VOTE_RECAST = new ConfigFileEntry("vote_recast", false,"season.democracy", "Vote Recasting", "Whether players should be able to recast their votes.");
+        this.REVEAL_PLAYERS = new ConfigFileEntry("reveal_players", true,"season.democracy", "Reveal Players", "Whether gimmicks that use a random player should specify the name of the chosen player.");
 
-        this.GROUP_DEMOCRACY_GIMMICKS = new ConfigFileEntry("group_democracygimmicks", (Object)null, ConfigTypes.TEXT, "{season.democracygimmicks}", "Choose Your Life [Gimmicks]", "");
+        this.GROUP_DEMOCRACY_GIMMICKS = new ConfigFileEntry("group_democracygimmicks", (Object)null, ConfigTypes.TEXT, "{season.democracygimmicks}", "Choose Your Life [Gimmick Specific]", "");
+        this.REVEAL_BOOGEYMAN = new ConfigFileEntry("reveal_boogeyman", false,"season.democracygimmicks", "Reveal Boogeyman", "Whether the make_boogeyman gimmick should specify the name of the chosen player.");
         this.AI_OBFUSCATION = new ConfigFileEntry("ai_obfuscation", true,"season.democracygimmicks", "Ai Obfuscation", "Whether AIs that replace players should have a robotic voice overlay");
-        this.REVEAL_BOOGEYMAN = new ConfigFileEntry("reveal_boogeyman", false,"season.democracygimmicks", "Reveal Boogeyman", "Whether \"Turn a random player into a boogeyman\" gimmick should specify the name of the chosen player.");
-        this.REVEAL_PLAYERS = new ConfigFileEntry("reveal_players", true,"season.democracygimmicks", "Reveal Players", "Whether gimmicks that use a random player should specify the name of the chosen player.");
-
-        this.GROUP_DEMOCRACY_GIMMICKS_EXTENDED = new ConfigFileEntry("group_democracygimmicksextended", (Object)null, ConfigTypes.TEXT, "{season.democracygimmicks}", "Extended Gimmick Settings", "");
-        this.GAMBLING_WINCHANCE = new ConfigFileEntry<>("gambling_winchance", 40, "season.democracygimmicksextended", "Gambling win chance", "How likely you are to gain a life in life_gambling [in percents]");
-        this.CAKE_WAITTIME = new ConfigFileEntry<>("cake_waittime", 10, "season.democracygimmicksextended", "Cake delivery time", "How long it takes for get_cake to activate");
-
-
-
+        //this.GROUP_DEMOCRACY_GIMMICKS_EXTENDED = new ConfigFileEntry("group_democracygimmicksextended", (Object)null, ConfigTypes.TEXT, "{season.democracygimmicksextended}", "Extended Gimmick Settings", "");
+        this.GAMBLING_WINCHANCE = new ConfigFileEntry<>("gambling_winchance", 40, "season.democracygimmicks", "Gambling win chance", "How likely you are to gain a life in life_gambling [in percents]");
+        this.CAKE_WAITTIME = new ConfigFileEntry<>("cake_waittime", 10, "season.democracygimmicks", "Cake delivery time", "How long it takes for get_cake to activate");
+        this.TEAMHIDE_DURATION = new ConfigFileEntry<>("teamhide_duration", 15, "season.democracygimmicks", "Hidden Team Duration", "How long the hide_lives gimmick lasts");
+        this.HIDE_GOLDENS = new ConfigFileEntry<>("hide_goldens", false, "season.democracygimmicks", "Hide Goldens", "Whether Golden players should have their team hidden during the hide_lives gimmick");
 
     }
 
@@ -66,7 +65,7 @@ public class ConfigMixin extends ThirdLifeConfig {
         return new ArrayList(List.of(
                 this.GROUP_DEMOCRACY,
                 this.GROUP_DEMOCRACY_GIMMICKS,
-                this.GROUP_DEMOCRACY_GIMMICKS_EXTENDED,
+                //this.GROUP_DEMOCRACY_GIMMICKS_EXTENDED,
 
                 this.RELIFE_MODE,
                 this.GIMMICK_COUNT,
@@ -79,7 +78,9 @@ public class ConfigMixin extends ThirdLifeConfig {
                 this.REVEAL_PLAYERS,
 
                 this.GAMBLING_WINCHANCE,
-                this.CAKE_WAITTIME
+                this.CAKE_WAITTIME,
+                this.TEAMHIDE_DURATION,
+                this.HIDE_GOLDENS
         ));
     }
 }

@@ -13,10 +13,7 @@ import static net.mat0u5.lifeseries.Main.livesManager;
 public class YellowGift extends Gimmick {
     @Override
     public boolean isAvailable() {
-        for (ServerPlayerEntity player: livesManager.getAlivePlayers()){
-            if (livesManager.isOnSpecificLives(player, 2)) return true;
-        }
-        return false;
+        return livesManager.anyYellowPlayers(null);
     }
 
     public YellowGift(){
